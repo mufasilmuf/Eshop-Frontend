@@ -1,0 +1,29 @@
+.Container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+.Icon {
+  color: white;
+  background-color: #ff0066;
+  width: 30px;
+  vertical-align: middle;
+  text-align: center;
+  padding: 6px;
+  border-radius: 50%;
+}
+.Title {
+  position: relative;
+  right: 5px;
+}
+.Input {
+  width: 300px;
+}
+.Input_filed {
+  padding-bottom: 30px;
+}
+.Btn_signIn {
+  width: 300px;
+}

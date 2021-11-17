@@ -1,0 +1,15 @@
+.container {
+  text-align: center;
+  align-items: center;
+  margin: auto auto;
+}
+.selectBox {
+  width: 50%;
+  margin: auto auto;
+}
+.input {
+  width: 250px;
+}
+.btn {
+  width: 250px;
+}

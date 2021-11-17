@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+.Lift {
+  width: 60%;
+}
+.Right {
+  width: 40%;
+}
+.LiftCard {
+  height: 400px;
+}
+.RightCard {
+  height: 400px;
+}
+.price {
+  color: red;
+}
+
+@media (max-width: 992px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  .Lift {
+    width: 100%;
+  }
+  .Right {
+    width: 100%;
+  }
+  .LiftCard {
+    height: 100%;
+  }
+  .RightCard {
+    height: 100%;
+  }
+}

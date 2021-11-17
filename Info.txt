@@ -1,0 +1,34 @@
+backend Link: "https://mshopbackend.herokuapp.com/" 
+
+1. Registor user                                                   Method Type
+https://mshopbackend.herokuapp.com/api/users                         "post"
+
+2. Login
+https://mshopbackend.herokuapp.com/api/auth                          "post"
+ 
+3.Add Address
+https://mshopbackend.herokuapp.com/api/addresses                     "post"
+
+https://mshopbackend.herokuapp.com/api/addresses                     "GET"
+4.Products
+
+1.get all Products
+https://mshopbackend.herokuapp.com/api/products                      "GET"
+
+2.get all categories
+https://mshopbackend.herokuapp.com/api/products/categories           "GET 
+
+3.get products by Id
+https://mshopbackend.herokuapp.com/api/products/:Id                  "GET"
+
+4.add products
+https://mshopbackend.herokuapp.com/api/products                      "POST"
+
+5.update a products using Id
+https://mshopbackend.herokuapp.com/api/products/:Id                  "PUT"
+
+6.delete a products using Id
+https://mshopbackend.herokuapp.com/api/products/:Id                 "DELETE"   
+
+5.Orders
+https://mshopbackend.herokuapp.com/api/orders                        "POST"

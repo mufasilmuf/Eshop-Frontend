@@ -1,0 +1,33 @@
+.conntainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 90px;
+}
+.icon {
+  color: white;
+  background-color: #ff0066;
+  width: 30px;
+  vertical-align: middle;
+  text-align: center;
+  padding: 6px;
+  border-radius: 50%;
+}
+.title {
+  position: relative;
+  right: 5px;
+}
+.error {
+  color: red;
+}
+.input {
+  background-color: aliceblue;
+  width: 300px;
+}
+.input_filed {
+  padding-bottom: 30px;
+}
+.btn_signIn {
+  width: 300px;
+}

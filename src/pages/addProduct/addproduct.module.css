@@ -1,0 +1,14 @@
+.content {
+  text-align: center;
+  margin-top: 40px;
+}
+.titles {
+  font-size: 30px;
+}
+.input {
+  width: 280px;
+  height: 50px;
+}
+.btn {
+  width: 280px;
+}
