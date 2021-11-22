@@ -8,13 +8,13 @@ import jwt from "jsonwebtoken";
 import { useNavigate } from "react-router";
 
 const AddProducts = () => {
-  const [Name, setName] = useState();
-  const [Categories, setCategories] = useState();
-  const [Manufacturer, setManufacturer] = useState();
-  const [AvailableItems, setAvailableItems] = useState();
-  const [Price, setPrice] = useState();
-  const [URL, setURL] = useState();
-  const [Description, setDescription] = useState();
+  const [Name, setName] = useState("");
+  const [Categories, setCategories] = useState("");
+  const [Manufacturer, setManufacturer] = useState("");
+  const [AvailableItems, setAvailableItems] = useState("");
+  const [Price, setPrice] = useState("");
+  const [URL, setURL] = useState("");
+  const [Description, setDescription] = useState("");
 
   const navigate = useNavigate();
 
@@ -35,37 +35,30 @@ const AddProducts = () => {
 
   let onChangeName = (e) => {
     setName(e.target.value);
-    console.log(e.target.value);
   };
 
   let onChangeCategories = (e) => {
     setCategories(e.target.value);
-    console.log(e.target.value);
   };
 
   let onChangeManufacturer = (e) => {
     setManufacturer(e.target.value);
-    console.log(e.target.value);
   };
 
   let onChangeAvailableItems = (e) => {
     setAvailableItems(e.target.value);
-    console.log(e.target.value);
   };
 
   let onChangePrice = (e) => {
     setPrice(e.target.value);
-    console.log(e.target.value);
   };
 
   let onChangeURL = (e) => {
     setURL(e.target.value);
-    console.log(e.target.value);
   };
 
   let onChangeDescription = (e) => {
     setDescription(e.target.value);
-    console.log(e.target.value);
   };
 
   let onSubmit = (e) => {
@@ -83,11 +76,15 @@ const AddProducts = () => {
 
     authAxios
       .post("https://mshopbackend.herokuapp.com/api/products", newProduct)
-      .then((response) => {
-        console.log(response);
-      });
+      .then((response) => {});
 
-    console.log(newProduct);
+    setName("");
+    setCategories("");
+    setManufacturer("");
+    setAvailableItems("");
+    setPrice("");
+    setURL("");
+    setDescription("");
   };
 
   return (
@@ -111,6 +108,7 @@ const AddProducts = () => {
             required
             type="text"
             label="Name"
+            value={Name}
             variant="outlined"
           />
           <br />
@@ -120,6 +118,7 @@ const AddProducts = () => {
             className={ADDStyle.input}
             required
             type="text"
+            value={Categories}
             label="Categories"
             variant="outlined"
           />
@@ -131,6 +130,7 @@ const AddProducts = () => {
             required
             type="text"
             label="Manufacturer"
+            value={Manufacturer}
             variant="outlined"
           />
           <br />
@@ -140,6 +140,7 @@ const AddProducts = () => {
             className={ADDStyle.input}
             required
             type="number"
+            value={AvailableItems}
             label="Available items"
             variant="outlined"
           />
@@ -150,6 +151,7 @@ const AddProducts = () => {
             className={ADDStyle.input}
             required
             type="number"
+            value={Price}
             label="Price"
             variant="outlined"
           />
@@ -160,6 +162,7 @@ const AddProducts = () => {
             className={ADDStyle.input}
             required
             type="text"
+            value={URL}
             label="Image URL"
             variant="outlined"
           />
@@ -170,6 +173,7 @@ const AddProducts = () => {
             className={ADDStyle.input}
             required
             type="text"
+            value={Description}
             label="Product Description"
             variant="outlined"
           />

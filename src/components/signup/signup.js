@@ -3,7 +3,7 @@ import LockIcon from "@material-ui/icons/LockOutlined";
 import { Button, TextField } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import authAxios from "../../common/authAxios/authAxios";
 import Header from "../../common/header/header";
 import signUpStyles from "./signup.module.css";
 
@@ -37,18 +37,18 @@ const SignUp = () => {
   let onSumbit = async (event) => {
     event.preventDefault();
 
-    const RegistornewUser = {
-      firstname: FirstName,
-      lastname: LastName,
+    let RegistornewUser = {
       email: Email,
       password: Password,
-      contactnumber: Number,
+      first_name: FirstName,
+      last_name: LastName,
+      phone_number: Number,
     };
-    console.log(RegistornewUser);
-    axios
+
+    await authAxios
       .post("https://mshopbackend.herokuapp.com/api/users", RegistornewUser)
-      .then((response) => {
-        console.log(response.data);
+      .then(async (response) => {
+        console.log(await response.data);
       });
 
     window.location = "/";

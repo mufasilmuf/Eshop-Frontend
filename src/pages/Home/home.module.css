@@ -2,12 +2,12 @@
   display: grid;
   grid-template-columns: auto auto auto;
   justify-content: center;
-  margin-top: 30px;
-  grid-column-gap: 150px;
+  margin: 50px 100px;
   grid-row-gap: 50px;
 }
 .card {
   width: 320px;
+  margin: 0 70px;
 }
 .headerImage {
   width: 320px;
@@ -37,10 +37,9 @@
   color: black;
 }
 .deleteBtn {
-  float: right;
-}
-.deleteBtn_item {
-  margin-right: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 @media (max-width: 992px) {

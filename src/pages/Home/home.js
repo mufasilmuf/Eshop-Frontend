@@ -90,8 +90,10 @@ const Home = () => {
         showAcc={false}
         showLB={true}
         showSB={true}
+        Product={products}
+        setProduct={setproducts}
       />
-      <Toggle />
+      <Toggle Product={products} setProduct={setproducts} />
       <SortBox />
       <div className={HomeStyle.container}>
         {products.map((product) => {
@@ -165,18 +167,21 @@ const Home = () => {
             Are you sure you want to delete the product?
           </Typography>
           <br />
-          <Typography component="div" className={HomeStyle.deleteBtn}>
-            <Button
-              color="primary"
-              className={HomeStyle.deleteBtn_item}
-              variant="contained"
-              onClick={handleDelete}
-            >
-              OK
-            </Button>
-            <Button color="primary" variant="outlined" onClick={handleClose}>
-              Cancel
-            </Button>
+          <Typography className={HomeStyle.deleteBtn}>
+            <div>
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={handleDelete}
+              >
+                OK
+              </Button>
+            </div>
+            <div>
+              <Button color="primary" variant="outlined" onClick={handleClose}>
+                Cancel
+              </Button>
+            </div>
           </Typography>
         </Box>
       </Modal>

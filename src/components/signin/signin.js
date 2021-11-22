@@ -10,6 +10,7 @@ import signInStyle from "./signin.module.css";
 const SignIn = () => {
   const [Email, setEmail] = useState();
   const [Password, setPassword] = useState();
+  const [Error, setError] = useState("");
 
   let onChangeEmail = (e) => {
     setEmail(e.target.value);
@@ -26,6 +27,7 @@ const SignIn = () => {
       email: Email,
       password: Password,
     };
+
     axios
       .post("https://mshopbackend.herokuapp.com/api/auth", user)
       .then((response) => {
@@ -33,11 +35,10 @@ const SignIn = () => {
           localStorage.setItem("token", response.data.token);
           window.location = "/Home";
         } else {
-          window.location = "/";
         }
       })
       .catch((err) => {
-        console.log(err);
+        setError("Invalid Email or Password");
       });
   };
 

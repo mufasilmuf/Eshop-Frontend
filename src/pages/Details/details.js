@@ -43,7 +43,8 @@ var Details = () => {
     }
   }, []);
 
-  let handleClick = async () => {
+  let handleClick = async (e) => {
+    e.preventDefault();
     window.location = `/order?Id=${Id}&Quantity=${Quantity}`;
   };
 
@@ -81,23 +82,27 @@ var Details = () => {
             {productDetails[0]?.description}
           </div>
           <h1 className={DetailStyle.price}>₹ {productDetails[0]?.price}</h1>
-          <TextField
-            required
-            type="number"
-            label="Enter Quantity"
-            variant="outlined"
-            onChange={handleChange}
-          />
-          <br />
-          <br />
-          <Button
-            color="primary"
-            id={productDetails[0]?._id}
-            onClick={handleClick}
-            variant="contained"
-          >
-            Place order
-          </Button>
+
+          <form onSubmit={handleClick}>
+            <TextField
+              required
+              type="number"
+              label="Enter Quantity"
+              variant="outlined"
+              onChange={handleChange}
+            />
+
+            <br />
+            <br />
+            <Button
+              color="primary"
+              type="submit"
+              id={productDetails[0]?._id}
+              variant="contained"
+            >
+              Place order
+            </Button>
+          </form>
         </div>
       </div>
     </div>

@@ -1,11 +1,4 @@
 .toggle {
-  margin: 2% 0 0 35%;
-}
-@media (max-width: 992px) {
-  .toggle {
-    margin: 0;
-    align-items: center;
-    width: 100%;
-    height: 50px;
-  }
+  text-align: center;
+  margin-top: 30px;
 }

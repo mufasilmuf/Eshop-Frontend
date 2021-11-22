@@ -4,6 +4,7 @@ import Logo from "@material-ui/icons/ShoppingCart";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import HeaderStyle from "./header.module.css";
+import authAxios from "../authAxios/authAxios";
 
 const Header = (props) => {
   const Navigate = useNavigate();
@@ -11,6 +12,25 @@ const Header = (props) => {
   let handlelogout = () => {
     localStorage.removeItem("token");
     Navigate("/");
+  };
+
+  let SearchItem = "";
+
+  const handleChangle = (e) => {
+    debugger;
+    SearchItem = e.target.value;
+    let product = props.Product;
+
+    if (SearchItem == "") {
+      authAxios.get("/api/products").then((response) => {
+        props.setProduct(response.data);
+      });
+    } else {
+      const SearchProduct = product.filter((prod) => {
+        return prod.name.toLowerCase().indexOf(SearchItem.toLowerCase()) >= 0;
+      });
+      props.setProduct(SearchProduct);
+    }
   };
 
   return (
@@ -26,6 +46,7 @@ const Header = (props) => {
           <OutlinedInput
             className={HeaderStyle.search_input}
             placeholder="Search.."
+            onChange={handleChangle}
           ></OutlinedInput>
         </div>
       ) : null}
