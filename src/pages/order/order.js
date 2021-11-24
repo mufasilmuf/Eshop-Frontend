@@ -12,9 +12,7 @@ var Order = () => {
     const token = localStorage.getItem("token");
     if (token) {
       const user = jwt.decode(token);
-      if (user.role === "user") {
-      } else {
-        navigator("/notfound");
+      if (user) {
       }
     } else {
       navigator("/");
@@ -23,7 +21,7 @@ var Order = () => {
 
   return (
     <div>
-      <Header home={true} showAcc={false} showLB={true} showSB={true} />
+      <Header home={true} showAcc={false} showLB={true} showSB={false} />
       <div className="Menu">
         <StepperMenu />
       </div>

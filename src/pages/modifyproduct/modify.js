@@ -6,6 +6,8 @@ import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import jwt from "jsonwebtoken";
 import authAxios from "../../common/authAxios/authAxios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditBox = () => {
   const [Name, setName] = useState();
@@ -85,7 +87,11 @@ const EditBox = () => {
     setDescription(e.target.value);
   };
 
-  let onSubmit = (e) => {
+  const modifyNotification = () => {
+    toast.success("Product Modified successfully!");
+  };
+
+  let onSubmit = async (e) => {
     e.preventDefault();
 
     let newProduct = {
@@ -98,11 +104,13 @@ const EditBox = () => {
       description: Description,
     };
 
-    authAxios
+    await authAxios
       .put("https://mshopbackend.herokuapp.com/api/products/" + Id, newProduct)
       .then((response) => {
         console.log(response.data);
       });
+
+    modifyNotification();
   };
 
   return (
@@ -228,6 +236,18 @@ const EditBox = () => {
           </Button>
         </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        theme="colored"
+        pauseOnHover
+      />
     </div>
   );
 };

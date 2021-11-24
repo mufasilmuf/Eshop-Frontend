@@ -13,7 +13,8 @@ const SignIn = () => {
   const [Error, setError] = useState("");
 
   let onChangeEmail = (e) => {
-    setEmail(e.target.value);
+    let EMAIL = e.target.value.toLowerCase();
+    setEmail(EMAIL);
   };
 
   let onChangePassword = (e) => {

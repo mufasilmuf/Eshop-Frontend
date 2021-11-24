@@ -27,3 +27,9 @@
 .Btn_signIn {
   width: 300px;
 }
+.success {
+  color: green;
+}
+.error {
+  color: red;
+}

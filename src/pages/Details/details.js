@@ -54,8 +54,7 @@ var Details = () => {
 
   return (
     <div className={DetailStyle.Details}>
-      <Header home={true} showAcc={false} showLB={true} showSB={true} />
-      <Toggle />
+      <Header home={true} showAcc={false} showLB={true} showSB={false} />
 
       <div className={DetailStyle.container}>
         <div className={DetailStyle.Image}>

@@ -6,6 +6,8 @@ import authAxios from "../../common/authAxios/authAxios";
 import { useEffect } from "react";
 import jwt from "jsonwebtoken";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddProducts = () => {
   const [Name, setName] = useState("");
@@ -61,7 +63,11 @@ const AddProducts = () => {
     setDescription(e.target.value);
   };
 
-  let onSubmit = (e) => {
+  const notify = () => {
+    toast.success("Product added successfully!");
+  };
+
+  let onSubmit = async (e) => {
     e.preventDefault();
 
     let newProduct = {
@@ -74,7 +80,7 @@ const AddProducts = () => {
       description: Description,
     };
 
-    authAxios
+    await authAxios
       .post("https://mshopbackend.herokuapp.com/api/products", newProduct)
       .then((response) => {});
 
@@ -85,6 +91,8 @@ const AddProducts = () => {
     setPrice("");
     setURL("");
     setDescription("");
+
+    notify();
   };
 
   return (
@@ -189,6 +197,18 @@ const AddProducts = () => {
           </Button>
         </form>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        theme="colored"
+        pauseOnHover
+      />
     </div>
   );
 };

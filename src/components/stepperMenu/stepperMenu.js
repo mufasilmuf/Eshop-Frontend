@@ -10,6 +10,10 @@ import Item from "../items/items";
 import Addaddress from "../addAdress/addAddress";
 import Confirm from "../confirm/confirm";
 import authAxios from "../../common/authAxios/authAxios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router";
+import jwt from "jsonwebtoken";
 
 const steps = ["Items", "Select Address", "Confirm Order"];
 
@@ -22,26 +26,38 @@ export default function StepperMenu() {
 
   const Quantity = urlParams.get("Quantity");
 
+  const Navigate = useNavigate();
+
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set());
 
-  const isStepSkipped = (step) => {
-    return skipped.has(step);
-  };
-
-  const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-
+  const handleNext = async () => {
+    console.log(activeStep);
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
+
+    if (activeStep === 2) {
+      setActiveStep((prevActiveStep) => prevActiveStep - 1);
+      const token = localStorage.getItem("token");
+      const findUser = jwt.decode(token);
+      if (findUser.role === "Admin") {
+        Navigate("/notfound");
+      } else {
+        orderPlaced("Order placed sucessfully!");
+        await callAPI();
+      }
+    }
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    localStorage.removeItem("addressId");
+  };
+
+  const notify = (status) => {
+    toast.error(status);
+  };
+
+  const orderPlaced = async (status) => {
+    toast.success(status);
   };
 
   let show = (activeStep) => {
@@ -50,15 +66,18 @@ export default function StepperMenu() {
     } else if (activeStep === 1) {
       return <Addaddress />;
     } else if (activeStep === 2) {
-      return <Confirm />;
+      const id = localStorage.getItem("addressId");
+      if (id) {
+        return <Confirm />;
+      } else {
+        setActiveStep(activeStep - 1);
+        notify("Please select address!");
+      }
     }
   };
 
   let callAPI = async () => {
-    debugger;
-    const addressId = sessionStorage.getItem("address");
-
-    console.log(addressId);
+    const addressId = localStorage.getItem("addressId");
 
     let Order = {
       product: Id,
@@ -68,22 +87,14 @@ export default function StepperMenu() {
 
     await authAxios
       .post("https://mshopbackend.herokuapp.com/api/orders", Order)
-      .then((response) => {
-        console.log(Id);
-        console.log(addressId);
-        console.log(Quantity);
-        console.log(response.data);
-      })
+      .then((response) => {})
       .catch((err) => {
         console.log(err);
       });
-  };
 
-  let placeOrder = (place) => {
-    debugger;
-    callAPI();
-    let go = place;
-    window.location = go;
+    localStorage.removeItem("addressId");
+
+    Navigate("/home");
   };
 
   return (
@@ -94,9 +105,6 @@ export default function StepperMenu() {
             const stepProps = {};
             const labelProps = {};
 
-            if (isStepSkipped(index)) {
-              stepProps.completed = false;
-            }
             return (
               <Step key={label} {...stepProps}>
                 <StepLabel {...labelProps}>{label}</StepLabel>
@@ -106,32 +114,41 @@ export default function StepperMenu() {
         </Stepper>
       </Card>
 
-      {activeStep === steps.length ? (
-        <div>{placeOrder("Home")}</div>
-      ) : (
-        <div>
-          <React.Fragment>
-            <Typography component="div" sx={{ mt: 2, mb: 1 }}>
-              {show(activeStep)}
-            </Typography>
-            <Box className="stepperBtn">
-              <Button
-                color="primary"
-                variant="contained"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                Back
-              </Button>
+      <div>
+        <React.Fragment>
+          <Typography component="div" sx={{ mt: 2, mb: 1 }}>
+            {show(activeStep)}
+          </Typography>
+          <Box className="stepperBtn">
+            <Button
+              color="primary"
+              variant="contained"
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{ mr: 1 }}
+            >
+              Back
+            </Button>
 
-              <Button color="primary" variant="contained" onClick={handleNext}>
-                {activeStep === steps.length - 1 ? "Place Order" : "Next"}
-              </Button>
-            </Box>
-          </React.Fragment>
-        </div>
-      )}
+            <Button color="primary" variant="contained" onClick={handleNext}>
+              {activeStep === steps.length - 1 ? "Place Order" : "Next"}
+            </Button>
+          </Box>
+        </React.Fragment>
+      </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </Box>
   );
 }

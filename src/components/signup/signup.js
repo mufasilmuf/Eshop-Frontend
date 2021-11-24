@@ -8,11 +8,14 @@ import Header from "../../common/header/header";
 import signUpStyles from "./signup.module.css";
 
 const SignUp = () => {
-  const [FirstName, setfirstName] = useState();
-  const [LastName, setlastName] = useState();
-  const [Email, setemail] = useState();
-  const [Password, setPassword] = useState();
-  const [Number, setNumber] = useState();
+  const [FirstName, setfirstName] = useState("");
+  const [LastName, setlastName] = useState("");
+  const [Email, setemail] = useState("");
+  const [Password, setPassword] = useState("");
+  const [confirmPassword, setconfirmPassword] = useState("");
+  const [Number, setNumber] = useState("");
+  const [success, setsuccess] = useState("");
+  const [error, seterror] = useState("");
 
   let onChangeFirstName = (event) => {
     setfirstName(event.target.value);
@@ -23,11 +26,16 @@ const SignUp = () => {
   };
 
   let onChangeEmail = (event) => {
-    setemail(event.target.value);
+    let EMAIL = event.target.value.toLowerCase();
+    setemail(EMAIL);
   };
 
   let onChangePassword = (event) => {
     setPassword(event.target.value);
+  };
+
+  let onChangePasswordConfrom = (event) => {
+    setconfirmPassword(event.target.value);
   };
 
   let onChangeContactNumber = (event) => {
@@ -48,10 +56,18 @@ const SignUp = () => {
     await authAxios
       .post("https://mshopbackend.herokuapp.com/api/users", RegistornewUser)
       .then(async (response) => {
-        console.log(await response.data);
+        setsuccess("Account Created Successfully!");
+      })
+      .catch((err) => {
+        seterror("Entered Email is Already Registor");
       });
 
-    window.location = "/";
+    setfirstName("");
+    setlastName("");
+    setemail("");
+    setPassword("");
+    setconfirmPassword("");
+    setNumber("");
   };
 
   return (
@@ -78,6 +94,7 @@ const SignUp = () => {
               className={signUpStyles.Input}
               label="First Name"
               variant="outlined"
+              value={FirstName}
             />
             <br />
             <br />
@@ -88,6 +105,7 @@ const SignUp = () => {
               type="text"
               label="Last Name"
               variant="outlined"
+              value={LastName}
             />
             <br />
             <br />
@@ -98,6 +116,7 @@ const SignUp = () => {
               type="email"
               label="Email Address"
               variant="outlined"
+              value={Email}
             />
             <br />
             <br />
@@ -109,16 +128,19 @@ const SignUp = () => {
               type="password"
               label="Password"
               variant="outlined"
+              value={Password}
             />
             <br />
             <br />
             <TextField
+              onChange={onChangePasswordConfrom}
               required
               className={signUpStyles.Input}
               autoComplete="on"
               type="password"
               label="Confirm Password"
               variant="outlined"
+              value={confirmPassword}
             />
             <br />
             <br />
@@ -129,6 +151,7 @@ const SignUp = () => {
               type="number"
               label="Contact Number"
               variant="outlined"
+              value={Number}
             />
           </div>
           <div className="Btn">
@@ -144,6 +167,8 @@ const SignUp = () => {
           </div>
         </form>
         <br />
+        <div className={signUpStyles.success}>{success}</div>
+        <div className={signUpStyles.error}>{error}</div>
         <Link to="/">Already have an account? Sign In</Link>
       </Box>
     </div>

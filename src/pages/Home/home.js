@@ -13,6 +13,8 @@ import SortBox from "../../components/sortedBox/sorted";
 import HomeStyle from "./home.module.css";
 import Modal from "@material-ui/core/Modal";
 import Box from "@material-ui/core/Box";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const style = {
   position: "absolute",
@@ -73,13 +75,18 @@ const Home = () => {
     window.location = `/details?Id=${id}`;
   };
 
-  let handleDelete = () => {
-    AuthAxios.delete(
+  const DeleteNofity = () => {
+    toast.success("Product deleted successfully!");
+  };
+
+  let handleDelete = async () => {
+    await AuthAxios.delete(
       "https://mshopbackend.herokuapp.com/api/products/" + DeleteId
     ).then((response) => {
       console.log(response.data);
     });
     handleClose();
+    DeleteNofity();
   };
 
   return (
@@ -93,8 +100,10 @@ const Home = () => {
         Product={products}
         setProduct={setproducts}
       />
+
       <Toggle Product={products} setProduct={setproducts} />
       <SortBox />
+
       <div className={HomeStyle.container}>
         {products.map((product) => {
           return (
@@ -153,6 +162,7 @@ const Home = () => {
           );
         })}
       </div>
+
       <Modal
         open={open}
         aria-labelledby="modal-modal-title"
@@ -185,6 +195,19 @@ const Home = () => {
           </Typography>
         </Box>
       </Modal>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        theme="colored"
+        pauseOnHover
+      />
     </div>
   );
 };

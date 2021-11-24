@@ -3,6 +3,8 @@ import Select from "react-select";
 import { Button, TextField } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import authAxios from "../../common/authAxios/authAxios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Addaddress = () => {
   const [address, setaddress] = useState("");
@@ -16,22 +18,24 @@ const Addaddress = () => {
   const [Landmark, setLandmark] = useState("");
   const [Zipcode, setZipcode] = useState("");
 
+  const notify = (status) => {
+    toast.success(status);
+  };
+
   useEffect(() => {
     authAxios
       .get("https://mshopbackend.herokuapp.com/api/addresses")
       .then((response) => {
         let newaddress =
-          response.data.result?.name + " " + response.data.result?.street;
+          response.data.result.name + " " + response.data.result.street;
         setaddress(newaddress);
         setvalue(response.data.result?._id);
+      })
+      .catch((err) => {
+        setaddress("");
+        setvalue("");
       });
   }, []);
-
-  const option = [{ value: value, label: address }];
-
-  let handleChange = () => {
-    sessionStorage.setItem(value, "address");
-  };
 
   let onChangeName = (e) => {
     setName(e.target.value);
@@ -61,7 +65,7 @@ const Addaddress = () => {
     setZipcode(e.target.value);
   };
 
-  let onSubmit = (e) => {
+  let onSubmit = async (e) => {
     e.preventDefault();
 
     const Address = {
@@ -74,7 +78,7 @@ const Addaddress = () => {
       zipCode: Zipcode,
     };
 
-    authAxios
+    await authAxios
       .post("https://mshopbackend.herokuapp.com/api/addresses", Address)
       .then((response) => {});
 
@@ -86,6 +90,15 @@ const Addaddress = () => {
     setState("");
     setLandmark("");
     setZipcode("");
+
+    notify("Address added successfully!");
+  };
+
+  const option = [{ value: value, label: address }];
+
+  let handleChange = (e) => {
+    let id = e.value;
+    localStorage.setItem("addressId", id);
   };
 
   return (
@@ -93,7 +106,7 @@ const Addaddress = () => {
       <div className={AddStyle.selectBox}>
         <div>Select Address</div>
         <div className={AddStyle.Select}>
-          <Select id="options" options={option} onChange={handleChange} />
+          <Select id={value} options={option} onChange={handleChange} />
         </div>
       </div>
 
@@ -189,6 +202,19 @@ const Addaddress = () => {
           </Button>
         </form>
       </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };
