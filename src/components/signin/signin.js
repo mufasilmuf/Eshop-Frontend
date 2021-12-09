@@ -93,6 +93,7 @@ const SignIn = () => {
           </div>
         </form>
         <br />
+        <div>Copy Right by mufeeth.com</div>
         <Link to="/signup">Don't have an account? Sign Up</Link>
       </Box>
     </div>
