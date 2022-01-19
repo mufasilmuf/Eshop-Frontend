@@ -3,3 +3,9 @@
   margin-top: 10px;
   width: 300px;
 }
+
+@media (max-width: 1000px) {
+  .box {
+    display: none;
+  }
+}

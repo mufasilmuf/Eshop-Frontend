@@ -120,6 +120,7 @@ const Home = () => {
                 </Typography>
                 <Typography component="div">₹ {product.price}</Typography>
               </Typography>
+
               <CardContent className={HomeStyle.content}>
                 <Typography variant="body2" color="text.secondary">
                   {product.description}

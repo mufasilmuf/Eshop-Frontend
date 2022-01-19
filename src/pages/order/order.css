@@ -1,3 +1,8 @@
 .Menu {
   padding: 10px 80px;
 }
+@media (max-width: 1000px) {
+  .Menu {
+    padding: 0;
+  }
+}

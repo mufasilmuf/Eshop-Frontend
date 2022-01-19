@@ -1,6 +1,6 @@
 import { Box, Button, OutlinedInput, Typography } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import Logo from "@material-ui/icons/ShoppingCart";
+import Logo from "../../assets/logo.webp";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import HeaderStyle from "./header.module.css";
@@ -36,8 +36,7 @@ const Header = (props) => {
   return (
     <Box className={HeaderStyle.Header}>
       <div className={HeaderStyle.Logo}>
-        <Logo className={HeaderStyle.logo_icon} />
-        <Typography className={HeaderStyle.logo_text}>upGard E-Shop</Typography>
+        <img src={Logo} alt="Logo" className={HeaderStyle.logo_icon} />
       </div>
 
       {props.showSB ? (
