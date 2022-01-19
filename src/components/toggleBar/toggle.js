@@ -49,6 +49,7 @@ const Toggle = (props) => {
         value={alignment}
         exclusive
         onChange={handleChange}
+        className={toggleStyle.item}
       >
         <ToggleButton value="All">All</ToggleButton>
         {categories.map((categ) => {
